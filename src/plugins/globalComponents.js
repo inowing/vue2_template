@@ -35,7 +35,9 @@ const GlobalComponents = {
     Vue.component(Card.name, Card);
     Vue.component(Modal.name, Modal);
     Vue.component(StatsCard.name, StatsCard);
+    
     Vue.component(Input.name, Input);
+    
     Vue.component('validation-provider', ValidationProvider)
     Vue.component('validation-observer', ValidationObserver)
     Vue.use(Tooltip);

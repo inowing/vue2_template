@@ -170,6 +170,10 @@
               <div class="content ql-editor" v-html="copyright"></div>
 
             </b-card-text>
+
+            <b-card-text>
+              
+            </b-card-text>
           </b-card>
         </b-col>
       </b-row>
@@ -223,6 +227,7 @@ export default {
         theme: "snow",
       },
       /** quill editor */
+      
     };
   },
   computed: {
@@ -375,7 +380,7 @@ export default {
     },
     onEditorReady(quill) {
       // console.log("editor ready!", quill);
-    },
+    }
   },
   mounted() {
     this.set_lang_option_values();
