@@ -1,7 +1,7 @@
 <template>
 <div>
     
-    <b-container fluid class="mt--7">
+    <b-container fluid class="pb-6 pb-8 pt-6 pt-md-8 bg-gradient-success">
         <b-row>
             <b-col xl="8" class="mb-5 mb-xl-0">
                 <b-card no-body class="p-3">
