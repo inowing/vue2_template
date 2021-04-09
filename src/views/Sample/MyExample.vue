@@ -331,8 +331,8 @@ export default {
       // item.value -> event.target.value로 바꿔야 한다.
       let value = event.target.value;
       item.value = value;
-      item.text = this.lang_options_obj[value].text;
-      item.memo = this.lang_options_obj[value].memo;
+      // item.text = this.lang_options_obj[value].text;
+      // item.memo = this.lang_options_obj[value].memo;
       // available 아이템 변경한다.
       this.reset_available();
     },
