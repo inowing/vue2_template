@@ -93,7 +93,7 @@ MainLayout.vue에서는 서브메뉴를 추가할 시 메뉴의 속에 아래와
 
 ```
 
-### jaepil add
+### custom add
 ```
 오픈 소스
 https://www.creative-tim.com/product/vue-argon-dashboard
