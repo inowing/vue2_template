@@ -168,6 +168,7 @@
               />
               <br />
               <div class="content ql-editor" v-html="copyright"></div>
+
             </b-card-text>
           </b-card>
         </b-col>
@@ -177,6 +178,7 @@
 </template>
 
 <script>
+
 export default {
   components: {},
   data() {
@@ -201,11 +203,11 @@ export default {
 
       /** 메모 + 유니크 셀렉트 */
       lang_options: [
-        { value: "b1", text: "박지성" },
-        { value: "b2", text: "김종국" },
-        { value: "b3", text: "홀란드" },
-        { value: "b4", text: "파루크" },
-        { value: "b5", text: "이순신" },
+        { value: "b1", text: "박지성", memo: "" },
+        { value: "b2", text: "김종국", memo: "" },
+        { value: "b3", text: "홀란드", memo: "" },
+        { value: "b4", text: "파루크", memo: "" },
+        { value: "b5", text: "이순신", memo: "" },
       ],
       lang_options_values: [],
       lang_options_obj: {},
@@ -283,8 +285,7 @@ export default {
         }
       }
     },
-    reset_available: function () {
-      console.log('available reset.... start!');
+    reset_available: function (type) {
       if (this.select_arr[0].available.length == 0) { // 가능한 목록이 없으면 그만한다.
         return;
       }
@@ -293,8 +294,7 @@ export default {
       for (let item of this.select_arr) {
         selected_value.push(item.value);
       }
-      console.log('selected_value... before list', selected_value);
-
+      
       let vanila_values = []; // [value, value, value]
       for (let item of this.lang_options_values) {
         if (!selected_value.includes(item)) {
@@ -308,74 +308,47 @@ export default {
           vanila_available.push(item);
         }
       }
-      // selected_value.push(vanila_available[0].value); // 추가할 아이템 넣어준다.
-      // vanila_available.splice(0, 1); // 바닐라에서 하나 빼준다.
 
-      this.select_arr = []; // init
-      for (let value of selected_value) {
-        let item_available = [this.lang_options_obj[value], ...vanila_available]; // 자기 자신과 바닐라 = 리스트별 선택 가능목록
-        let new_item = {value: value, text: this.lang_options_obj[value].text, available: item_available};
-        this.select_arr.push(new_item);
+      if (type == 'add') {
+        selected_value.push(vanila_available[0].value); // 추가할 아이템 넣어준다.
+        vanila_available.splice(0, 1); // 바닐라에서 하나 빼준다.
       }
+
+      let new_arr = []; // init
+      for (var i = 0; i < selected_value.length; i++) {
+        let value = selected_value[i];
+        let item_available = [this.lang_options_obj[value], ...vanila_available]; // 자기 자신과 바닐라 = 리스트별 선택 가능목록
+        let memo = this.lang_options_obj[value].memo;
+        if (this.select_arr[i]) {
+          memo = this.select_arr[i].memo;
+        }
+        let new_item = {value: value, text: this.lang_options_obj[value].text, memo, available: item_available};
+        new_arr.push(new_item);
+      }
+      this.select_arr = new_arr;
     },
     selectedChange: function (event, item, index) {
-      console.log(event.target.value, item, index);
-      // item.value -> event.target.value로 바뀐거다.
-      // item.value 는 v-model로 변경되어 버린다.
-      // item.text == 
-      // 1. value, text 변경한다
-      // 2. available 아이템 변경한다.
+      // item.value -> event.target.value로 바꿔야 한다.
+      let value = event.target.value;
+      item.value = value;
+      item.text = this.lang_options_obj[value].text;
+      item.memo = this.lang_options_obj[value].memo;
+      // available 아이템 변경한다.
       this.reset_available();
-      // console.log(item, index);
-      // if (this.select_arr[0].available.length == 0) { // 가능한 목록이 없으면 그만한다.
-      //   return;
-      // }
-      // 선택된 값은 가능목록에서 빼고, 버려진 값은 가능목록에 다시 넣어준다.
-
-      
     },
     addList: function () {
       if (this.select_arr.length == 0) {
         let value = this.lang_options[0].value;
         let text = this.lang_options[0].text;
+        let memo = this.lang_options[0].memo;
         let available = this.lang_options;
-        this.select_arr.push({value, text, available});
+        this.select_arr.push({value, text, memo, available});
         return;
       }
       // 최초순환 끝
       
       // 두번째부터 수행 -- available을 모두 재생산 하는것이 관건이다.
-      if (this.select_arr[0].available.length == 0) { // 가능한 목록이 없으면 그만한다.
-        return;
-      }
-
-      let selected_value = [];
-      for (let item of this.select_arr) {
-        selected_value.push(item.value);
-      }
-
-      let vanila_values = []; // [value, value, value]
-      for (let item of this.lang_options_values) {
-        if (!selected_value.includes(item)) {
-          vanila_values.push(item);
-        }
-      }
-
-      let vanila_available = [];
-      for (let item of this.lang_options) {
-        if (vanila_values.includes(item.value)) {
-          vanila_available.push(item);
-        }
-      }
-      selected_value.push(vanila_available[0].value); // 추가할 아이템 넣어준다.
-      vanila_available.splice(0, 1); // 바닐라에서 하나 빼준다.
-
-      this.select_arr = []; // init
-      for (let value of selected_value) {
-        let item_available = [this.lang_options_obj[value], ...vanila_available]; // 자기 자신과 바닐라 = 리스트별 선택 가능목록
-        let new_item = {value: value, text: this.lang_options_obj[value].text, available: item_available};
-        this.select_arr.push(new_item);
-      }
+      this.reset_available('add');
     },
     set_lang_option_values: function () {
       let arr = [];
@@ -389,7 +362,7 @@ export default {
     },
     removeList: function (item, index) {
       this.select_arr.splice(index, 1);
-      let revive = { value: item.value, text: item.text }; // 되살릴 아이템 구성
+      let revive = { value: item.value, text: item.text, memo: item.memo }; // 되살릴 아이템 구성
       for (let item of this.select_arr) {
         item.available.push(revive); // 남은 목록 안에 선택 가능한 옵션으로 되살린 아이템 넣어준다.
       }
