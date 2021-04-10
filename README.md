@@ -32,7 +32,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 1. 화면을 담당할 vue파일을 만들어 views 폴더 아래에 위치시킨다.
    views/부모컴포넌트.vue + views/라우트칠드런폴더/컴포넌트이름.vue 
-   컨텐츠 영역으로써 라우터가 찾아야 파일을 추가한다.
+   컨텐츠 영역으로써 라우터가 찾아야할 파일을 추가한다.
    테마를 일관성 있게 하려면 원본 소스의 도큐먼트를 참조한다.
    도큐먼트 사이트 : https://www.creative-tim.com/learning-lab/bootstrap-vue/overview/argon-dashboard
 
