@@ -43,7 +43,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
    MainLayout.vue 의 좌축 네비게이션을 등록해준다.
 ```
 
-## 기타 정보 : 무료소스에 함수는 정의되어 있으나 네비게이션의 서버메뉴 관련 코드가 빠져 있어서 추가해줌.
+## 기타 정보 : 무료소스에 함수는 정의되어 있으나 네비게이션의 서브메뉴 관련 코드가 빠져 있어서 추가해줌.
 ```
 SidebarPlugin/SideBar.vue
 단순 <slot name="links"></slot>였다. 같은 창작팀의 다른 무료소스 참조하여 아래와 같이 변경함.
