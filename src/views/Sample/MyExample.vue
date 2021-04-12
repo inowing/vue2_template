@@ -140,8 +140,8 @@
               <b-form-group label="Unique select list">
                 <b-input-group v-for="(item, index) in select_arr" :key="item.value" class="mt-1">
                   <b-form-input size="sm" type="text" v-model="item.memo"></b-form-input>
-                  <b-form-select size="sm" v-model="item.value" @change.native="selectedChange($event, item, index)">
-                    <b-form-select-option v-for="(user) in item.available" :key="user.value" :value="user.value" @click="selectedChange">{{ user.text }}</b-form-select-option>
+                  <b-form-select size="sm" style="height:31px;" v-model="item.value" @change.native="selectedChange($event, item, index)">
+                    <b-form-select-option size="sm" v-for="(user) in item.available" :key="user.value" :value="user.value" @click="selectedChange">{{ user.text }}</b-form-select-option>
                   </b-form-select>
                   <b-input-group-append>
                     <b-button size="sm" variant="danger" @click="removeList(item, index)">X</b-button>
