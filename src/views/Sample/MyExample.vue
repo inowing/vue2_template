@@ -172,7 +172,27 @@
             </b-card-text>
 
             <b-card-text>
-              
+                            
+              <b-form-group label="설문 문항">
+                  <b-card class="mb-1" bg-variant="light" v-for="(item, index) in question" v-bind:key="index">
+                      <b-form-group label="문항 제목">
+                          <b-form-input type="text" v-model="item.title" size="sm"></b-form-input>
+                      </b-form-group>
+                      <b-form-group label="보기">
+                          <b-input-group size="sm" class="mb-1"
+                              v-for="(choice, index) in item.case" v-bind:key="index">
+                              <b-form-input type="text" v-model="item.case[index]"></b-form-input>
+                              <b-input-group-append><b-button variant="danger" size="sm" @click="item.case.splice(index, 1)">x</b-button></b-input-group-append>
+                          </b-input-group>
+                          <b-button variant="success" size="sm" class="mt-1" @click="item.case.push('')">보기 추가하기</b-button>
+                      </b-form-group>
+                      <b-card-footer>
+                          <b-button variant="outline-danger" size="sm" @click="question.splice(index, 1)">문항 삭제하기</b-button>
+                      </b-card-footer>
+                  </b-card>
+              </b-form-group>
+              <b-button variant="primary" size="sm" @click="addArray(question, question_type1)">문항 추가하기</b-button>
+
             </b-card-text>
           </b-card>
         </b-col>
@@ -228,6 +248,11 @@ export default {
       },
       /** quill editor */
       
+            /** 설문문항 추가하기 */
+      question: [{"title":"만족하십니까", "case":["매우만족","만족","불만족"]}],
+      question_type1: { title: '', case: [] },
+      /** 설문문항 추가하기 */
+
     };
   },
   computed: {
@@ -380,7 +405,27 @@ export default {
     },
     onEditorReady(quill) {
       // console.log("editor ready!", quill);
+    },
+    
+addArray: function (array, new_item) {
+      function cloneObject(obj) {
+          var clone = {};
+          for (var key in obj) {
+              if (Array.isArray(obj[key])) {
+                  let new_arr = obj[key].slice();
+                  clone[key] = new_arr;
+              } else if (typeof obj[key] == "object" && obj[key] != null) {
+                  clone[key] = cloneObject(obj[key]);
+              } else {
+                  clone[key] = obj[key];
+              }
+          }
+          return clone;
+      }
+      let clone = cloneObject(new_item);
+      array.push(clone);
     }
+
   },
   mounted() {
     this.set_lang_option_values();
