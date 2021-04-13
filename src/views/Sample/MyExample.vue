@@ -248,7 +248,7 @@ export default {
       },
       /** quill editor */
       
-            /** 설문문항 추가하기 */
+      /** 설문문항 추가하기 */
       question: [{"title":"만족하십니까", "case":["매우만족","만족","불만족"]}],
       question_type1: { title: '', case: [] },
       /** 설문문항 추가하기 */
